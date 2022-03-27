@@ -8,13 +8,15 @@ jobs:
     
     - uses: actions/checkout@master
     
-    - name: check where i am
+    - name: update yaml file
       run: |
-        pwd
+        cd ./k8s
+        sed -i s;latest;test;g ./k8s/deployment.yaml
+        cat ./k8s/deployment.yaml
         ls
     
-    - name: deploy to cluster
-      uses: steebchen/kubectl@v2.0.0
-      with: 
-        config: ${{ secrets.KUBECONFIG }}
-        command: get pods
+#     - name: deploy to cluster
+#       uses: steebchen/kubectl@v2.0.0
+#       with: 
+#         config: ${{ secrets.KUBECONFIG }}
+#         command: get pods
