@@ -1,5 +1,5 @@
 
-name: Gradle Build
+name: Gradle Build & K8s Deploy
 
 on:
   push:
