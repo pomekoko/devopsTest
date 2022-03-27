@@ -2,8 +2,8 @@
 name: Gradle Build
 
 on:
-  create:
-    tags: -v*
+  push:
+    tags: V*
 
 jobs:
   build:
@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
     - uses: actions/checkout@v2
     
     - name: Set up JDK 11
@@ -31,5 +32,25 @@ jobs:
     - name: Build with jib
       run: |
         ./gradlew jib \
-        -Djib.to.image="zxcvb5434/devopstest:test"
+        -Djib.to.image="zxcvb5434/devopstest:${GITHUB_REF##*/}"
+        
+  deploy:
+    
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+    
+    - uses: actions/checkout@v2
+    
+    - name: Update yaml file
+      run: |
+        sed -i 's;latest;${GITHUB_REF##*/};g' ./k8s/deployment.yaml
+        cat ./k8s/deployment.yaml
+    
+    - name: Kubectl apply
+      uses: steebchen/kubectl@v2.0.0
+      with: 
+        config: ${{ secrets.KUBECONFIG }}
+        command: apply -f ./k8s/deployment.yaml
 
