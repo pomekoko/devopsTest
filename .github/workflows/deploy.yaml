@@ -4,25 +4,27 @@ jobs:
   deploy:
     name: deploy to cluster
     runs-on: ubuntu-latest
+    env:
+      TAG: ${GITHUB_REF##*/}
     steps:
     
     - uses: actions/checkout@master
     
     - name: tag test
-      run: echo 's;latest;${GITHUB_REF##*/};g'
+      run: echo 's;latest;$TAG;g'
     
     - name: update yaml file
       run: |
-        sed -i 's;latest;${GITHUB_REF##*/};g' ./k8s/deployment.yaml
+        sed -i 's;latest;$TAG;g' ./k8s/deployment.yaml
         cat ./k8s/deployment.yaml
         
     
-    - name: Get the version
-      id: get_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+#     - name: Get the version
+#       id: get_version
+#       run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
     
-    - name: deploy to cluster
-      uses: steebchen/kubectl@v2.0.0
-      with: 
-        config: ${{ secrets.KUBECONFIG }}
-        command: apply -f ./k8s/deployment.yaml
+#     - name: deploy to cluster
+#       uses: steebchen/kubectl@v2.0.0
+#       with: 
+#         config: ${{ secrets.KUBECONFIG }}
+#         command: apply -f ./k8s/deployment.yaml
