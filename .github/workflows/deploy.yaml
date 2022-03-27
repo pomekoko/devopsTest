@@ -1,22 +1,22 @@
-on: push
-name: deploy
-jobs:
-  deploy:
-    name: deploy to cluster
-    runs-on: ubuntu-latest
-    env:
-      TAG: ${GITHUB_REF##*/}
-    steps:
+# on: push
+# name: deploy
+# jobs:
+#   deploy:
+#     name: deploy to cluster
+#     runs-on: ubuntu-latest
+#     env:
+#       TAG: ${GITHUB_REF##*/}
+#     steps:
     
-    - uses: actions/checkout@master
+#     - uses: actions/checkout@master
     
-    - name: tag test
-      run: echo ${GITHUB_REF##*/}
+#     - name: tag test
+#       run: echo ${GITHUB_REF##*/}
     
-    - name: update yaml file
-      run: |
-        sed s/latest/${GITHUB_REF##*/}/ ./k8s/deployment.yaml
-        cat ./k8s/deployment.yaml
+#     - name: update yaml file
+#       run: |
+#         sed s/latest/${GITHUB_REF##*/}/ ./k8s/deployment.yaml
+#         cat ./k8s/deployment.yaml
         
     
 #     - name: Get the version
