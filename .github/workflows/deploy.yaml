@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@master
     
     - name: tag test
-      run: echo 's;latest;$TAG;g'
+      run: echo ${GITHUB_REF##*/}
     
     - name: update yaml file
       run: |
