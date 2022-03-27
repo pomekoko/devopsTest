@@ -43,9 +43,9 @@ jobs:
     
     - uses: actions/checkout@v2
     
-    - name: Update yaml file
+    - name: update yaml file
       run: |
-        sed -i 's;latest;${GITHUB_REF##*/};g' ./k8s/deployment.yaml
+        sed s/latest/${GITHUB_REF##*/}/ ./k8s/deployment.yaml
         cat ./k8s/deployment.yaml
     
     - name: Kubectl apply
