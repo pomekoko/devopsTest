@@ -21,8 +21,9 @@ jobs:
       run : chmod +x gradlew
       
     - name: Build with jib
-      run: ./gradlew jib \
-            -Djib.to.image="zxcvb5434/devopstest:test" \
-            -Djib.to.auth.username=${{ secrets.DOCKERHUB_USERNAME }}
-            -Djib.to.auth.password=${{ secrets.DOCKERHUB_PASSWORD }}
+      run: |
+        ./gradlew jib \
+        -Djib.to.image="zxcvb5434/devopstest:test" \
+        -Djib.to.auth.username=${{ secrets.DOCKERHUB_USERNAME }}
+        -Djib.to.auth.password=${{ secrets.DOCKERHUB_PASSWORD }}
 
