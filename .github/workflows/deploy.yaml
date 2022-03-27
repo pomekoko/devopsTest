@@ -9,11 +9,11 @@ jobs:
     - uses: actions/checkout@master
     
     - name: tag test
-      run: echo 's;latest;${{GITHUB_REF##*/}};g'
+      run: echo 's;latest;${GITHUB_REF##*/};g'
     
     - name: update yaml file
       run: |
-        sed -i 's;latest;${{GITHUB_REF##*/}};g' ./k8s/deployment.yaml
+        sed -i 's;latest;${GITHUB_REF##*/};g' ./k8s/deployment.yaml
         cat ./k8s/deployment.yaml
         
     
