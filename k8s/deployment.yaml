@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: core
-          image: zxcvb5434/devopstest:latest
+          image: pomekoko/devopstest:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
