@@ -48,7 +48,7 @@ jib {
 		image = "eclipse-temurin:11-jre"
 	}
 	to {
-		image = "zxcvb5434/devopstest"
+		image = "pomekoko/devopstest"
 		tags = ["latest"]
 	}
 	container {
